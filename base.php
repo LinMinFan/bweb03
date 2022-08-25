@@ -2,10 +2,10 @@
 session_start();
 date_default_timezone_set("Asia/Taipei");
 
-class db {
+class db{
     protected $table;
     protected $pdo;
-    protected $dsn="mysql:host=localhost;charset=utf8;dbname=bweb03";
+    protected $dsn="mysql:host=localhost;chraset=utf8;dbname=bweb03";
 
     function __construct($table)
     {
@@ -30,7 +30,7 @@ class db {
         if (is_array($id)) {
             $tmp=$this->to_str($id);
             $sql.=join(" && ",$tmp);
-        }else{
+        }else {
             $sql.="`id`=".$id;
         }
         //echo $sql;
@@ -43,7 +43,7 @@ class db {
             if (is_array($arg[0])) {
                 $tmp=$this->to_str($arg[0]);
                 $sql.=" WHERE ".join(" && ",$tmp);
-            }else{
+            }else {
                 $sql.=$arg[0];
             }
         }
@@ -53,13 +53,13 @@ class db {
         //echo $sql;
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+
     function del($id){
         $sql="DELETE FROM $this->table WHERE ";
         if (is_array($id)) {
             $tmp=$this->to_str($id);
             $sql.=join(" && ",$tmp);
-        }else{
+        }else {
             $sql.="`id`=".$id;
         }
         //echo $sql;
@@ -69,21 +69,21 @@ class db {
     function save($array){
         if (isset($array['id'])) {
             $tmp=$this->to_str($array);
-            $sql="UPDATE $this->table SET ".join(",",$tmp)." WHERE `id`=".$array['id'];
+            $sql="UPDATE $this->table SET ".join(",",$tmp)."WHERE `id`=".$array['id'];
         }else {
             $sql="INSERT INTO $this->table (`".join("`, `",array_keys($array))."`) VALUES ('".join("','",$array)."')";
         }
         //echo $sql;
         return $this->pdo->exec($sql);
     }
-    
+
     function math($math,$col,...$arg){
         $sql="SELECT $math($col) FROM $this->table ";
         if (isset($arg[0])) {
             if (is_array($arg[0])) {
                 $tmp=$this->to_str($arg[0]);
                 $sql.=" WHERE ".join(" && ",$tmp);
-            }else{
+            }else {
                 $sql.=$arg[0];
             }
         }
@@ -95,6 +95,7 @@ class db {
     }
 }
 
+
 function dd($array){
     echo "<pre>";
     print_r($array);
@@ -105,11 +106,15 @@ function to($url){
     header("location:".$url);
 }
 
+$sh=['sh'=>1];
+$today=date("Y-m-d");
+$start_day=date("Y-m-d",strtotime("-2 days"));
+$arraystr=['普遍級'=>'03C01.png','輔導級'=>'03C02.png','保護級'=>'03C03.png','限制級'=>'03C04.png'];
+$session=['1'=>'14:00~16:00','2'=>'16:00~18:00','3'=>'18:00~20:00','4'=>'20:00~22:00','5'=>'22:00~24:00'];
+
+
 $movie=new db('movie');
 $orders=new db('orders');
 $poster=new db('poster');
 
-$today=date("Y/m/d");
-$arylevel=['普遍級'=>'03C01.png','輔導級'=>'03C02.png','保護級'=>'03C03.png','限制級'=>'03C04.png',];
-$session=['1'=>"14:00~16:00", '2'=>"16:00~18:00",'3'=>"18:00~20:00",'4'=>"20:00~22:00",'5'=>"22:00~24:00"];
 ?>

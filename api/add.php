@@ -1,35 +1,30 @@
 <?php
 include "../base.php";
 
-$do=$_GET['do'];
-
-    $row=[];
-    switch ($do) {
-        case 'poster':
-            $name=$_FILES['img']['name'];
-            move_uploaded_file($_FILES['img']['tmp_name'],"../upload/$name");
-            $_POST['img']=$name;
-            $_POST['rank']=$$do->math('max','id')+1;
-            $_POST['sh']=1;
-            $_POST['ani']=rand(1,3);
-            break;
-        case 'movie':
-            $name=$_FILES['img']['name'];
-            move_uploaded_file($_FILES['img']['tmp_name'],"../upload/$name");
-            $mov=$_FILES['mov']['name'];
-            move_uploaded_file($_FILES['mov']['tmp_name'],"../upload/$mov");
-            $_POST['poster']=$name;
-            $_POST['trailer']=$mov;
-            $_POST['ondate']=$_POST['year']."-".$_POST['month']."-".$_POST['day'];
-            unset($_POST['year'],$_POST['month'],$_POST['day']);
-            $_POST['rank']=$$do->math('max','id')+1;
-            $_POST['sh']=1;
-            break;
+switch ($_GET['do']) {
+    case 'poster':
+        $_POST['img']=$_FILES['img']['name'];
+        move_uploaded_file($_FILES['img']['tmp_name'],"../upload/".$data['img']);
+        $_POST['rank']=${$_GET['do']}->math('max','id')+1;
+        $_POST['sh']=1;
+        $_POST['ani']=1;
+        break;
+    case 'movie':
+        $_POST['poster']=$_FILES['poster']['name'];
+        move_uploaded_file($_FILES['poster']['tmp_name'],"../upload/".$_POST['poster']);
+        $_POST['trailer']=$_FILES['trailer']['name'];
+        move_uploaded_file($_FILES['trailer']['tmp_name'],"../upload/".$_POST['trailer']);
+        $_POST['ondate']=$_POST['year']."-".$_POST['month']."-".$_POST['day'];
+        unset($_POST['year'],$_POST['month'],$_POST['day']);
+        $_POST['rank']=${$_GET['do']}->math('max','id')+1;
+        $_POST['sh']=1;
+        break;
+    
+    default:
         
-        default:
-            # code...
-            break;
-    }
-    $$do->save($_POST);
+        break;
+}
 
-to("../back.php?do=$do");
+
+${$_GET['do']}->save($_POST);
+to("../back.php?do=".$_GET['do']);

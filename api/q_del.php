@@ -1,8 +1,7 @@
 <?php
 include "../base.php";
 
-$table=$_POST['table'];
-
-$id=$_POST['id'];
-
-$$table->del($id);
+//movie=>
+//date=>
+$orders->del([$_POST['menu']=>$_POST['value']]);
+      

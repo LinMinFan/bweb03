@@ -1,94 +1,87 @@
-
-<div class="w100 mg " style="height:480px;">
-    <h3 class="ct mg">訂單清單</h3>
-    <form action="./api/edit.php?do=<?=$do;?>" method="post">
-    <div>
-        <label>快速刪除：</label>
-        <input type="radio" name="fastdel" value="1">
-        <span>依日期</span>
-        <input type="date"  id="datedel">
-        <input type="radio" name="fastdel" value="2">
-        <span>依電影</span>
-        <input type="text"  id="namedel">
-        <button type="button" onclick="fast_del($('input[type=radio]:checked').val())">刪除</button>
-    </div>
-        <div class="w100 os" style="height:380px;">
-            <table class="w100">
-                <tr>
-                    <td class="ct">訂單編號</td>
-                    <td class="ct">電影名稱</td>
-                    <td class="ct">日期</td>
-                    <td class="ct">場次時間</td>
-                    <td class="ct">訂購數量</td>
-                    <td class="ct">訂購位置</td>
-                    <td class="ct">操作</td>
-                </tr>
+<?php
+$mvs=$orders->all();
+$mv_names=$orders->all(" GROUP BY `movie`");
+?>
+<div id="mm">
+<div class="ct a rb" style="position:relative; width:101.5%; left:-1%; padding:3px; top:-9px;"> <a href="?do=tit">網站標題管理</a>| <a href="?do=go">動態文字管理</a>| <a href="?do=poster">預告片海報管理</a>| <a href="?do=movie">院線片管理</a>| <a href="?do=orders">電影訂票管理</a> </div>
+<h3 class="ct">訂單清單</h3>
+<div class="w100">
+    <label>快速刪除:</label>
+    <input type="radio" name="mod" data-text="date">依日期
+    <input type="text" name="" id="select_d">
+    <input type="radio" name="mod" data-text="movie">依電影
+    <select name="" id="select_m">
+        <?php
+            foreach ($mv_names as $key => $mv_name) {
+                ?>
+                    <option value="<?=$mv_name['movie'];?>"><?=$mv_name['movie'];?></option>
                 <?php
-                $datas = $$do->all();
-                foreach ($datas as $key => $data) {
+            }
+        ?>
+    </select>
+    <button onclick="q_del()">刪除</button>
+</div>
+<div class="w100 h400 oys">
+    <table class="w100">
+        <tr>
+            <td>訂單編號</td>
+            <td>電影名稱</td>
+            <td>日期</td>
+            <td>場次時間</td>
+            <td>訂購數量</td>
+            <td>訂購位置</td>
+            <td>操作</td>
+        </tr>
+        <?php
+            foreach ($mvs as $key => $mv) {
                 ?>
                     <tr>
-                        <td class="ct"><?= $data['no']; ?></td>
-                        <td class="ct"><?= $data['movie']; ?></td>
-                        <td class="ct"><?= $data['date']; ?></td>
-                        <td class="ct"><?= $data['session']; ?></td>
-                        <td class="ct"><?= $data['qt']; ?></td>
-                        <td class="ct">
+                        <td><?=$mv['no'];?></td>
+                        <td><?=$mv['movie'];?></td>
+                        <td><?=$mv['date'];?></td>
+                        <td><?=$mv['session'];?></td>
+                        <td><?=$mv['qt'];?></td>
+                        <td>
                             <?php
-                                $sets=unserialize($data['set']);
-                                foreach ($sets as $key => $set) {
-                                    $row=($set%4)+1;
-                                    $num=($set%5)+1;
+                                $seats=unserialize($mv['set']);
+                                foreach ($seats as $key => $seat) {
                                     ?>
-                                        <span class="blo"><?=$row;?>排<?=$num;?>號</span>
+                                        <p><?=(floor($seat/5)+1);?>排<?=($seat%5)+1;?>號</p>
                                     <?php
                                 }
                             ?>
                         </td>
-                        <td class="ct">
-                            <button type="button" onclick="del(<?=$data['id'];?>)">刪除</button>
+                        <td>
+                            <button type="button" onclick="del('orders',<?=$mv['id'];?>)">刪除</button>
                         </td>
                     </tr>
                 <?php
-                }
-                ?>
-            </table>
-        </div>
-        
-    </form>
+            }
+        ?>
+        </table>
 </div>
-<script>
+</div>
 
-    function del(id){
-            $.post("./api/del.php?do=<?=$do;?>",{id},()=>{
-                location.reload();
-            })
-        }
-    
-    function fast_del(mode){
-        let date;
-        let movie;
-        switch (mode) {
-            case "1":
-                date=$('#datedel').val();
-                if (confirm("你確定要刪除全部"+date+"的資料嗎?")) {
-                    $.post("./api/fast_del.php?do=orders",{date},()=>{
-                    location.reload();
-                })
-                }
+<script>
+    function q_del(){
+        let value;
+        let menu=$('input[type=radio]:checked').data('text');
+        
+        switch (menu) {
+            case 'date':
+                value=$('#select_d').val();
                 break;
-            case "2":
-                movie=$('#namedel').val();
-                if (confirm("你確定要刪除全部"+movie+"的資料嗎?")) {
-                    $.post("./api/fast_del.php?do=orders",{movie},()=>{
-                    location.reload();
-                })
-                }
+            case 'movie':
+                value=$('#select_m').val();
                 break;
         
             default:
                 break;
         }
-        
+        if (confirm("你確定要刪除"+value+"全部的資料嗎?")) {
+            $.post("./api/q_del.php",{value,menu},()=>{
+                location.reload();
+            })
+        }
     }
 </script>

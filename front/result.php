@@ -1,46 +1,36 @@
 <?php
-$order_ticket = $orders->find($_GET['no']);
-$seats = unserialize($order_ticket['set']);
+$ticket=$orders->find(['no'=>$_GET['no']]);
 ?>
-
 <div id="mm">
+    <p>感謝您的訂購，您的訂單編號是:<?=$_GET['no'];?></p>
     <div class="w60 mg">
-        <div>感謝您的訂購，您的訂單編號是:<?= $order_ticket['no']; ?></div>
-        <table class="w100 mg">
+        <table class="w100">
             <tr>
-                <td class="w30">電影名稱:</td>
-                <td class="w70">
-                    <?= $order_ticket['movie']; ?>
-                </td>
+                <td>電影名稱:</td>
+                <td><?=$ticket['movie'];?></td>
             </tr>
             <tr>
-                <td class="w30">日期:</td>
-                <td class="w70">
-                    <?= $order_ticket['date']; ?>
-                </td>
+                <td>日期:</td>
+                <td><?=$ticket['date'];?></td>
             </tr>
             <tr>
-                <td class="w30">場次時間</td>
-                <td class="w70">
-                    <?= $order_ticket['session']; ?>
-                </td>
+                <td>場次時間</td>
+                <td><?=$ticket['session'];?></td>
             </tr>
-
         </table>
-        <div>
+        <div class="w100">
+            <p>座位:</p>
             <?php
-            foreach ($seats as $key => $seat) {
+                foreach (unserialize($ticket['set']) as $key => $tk) {
+                    ?>
+                    <p><?=(floor($tk/5)+1);?>排<?=($tk%5)+1;?>號</p>
+                    <?php
+                }
             ?>
-                <p>
-                    <?= (floor($seat / 5) + 1); ?>排
-                    <?= ($seat % 5 + 1); ?>號
-                </p>
-            <?php
-            }
-            ?>
+            <p>共<?=$ticket['qt'];?>張電影票</p>
         </div>
-        <div class="ct">
-            <button onclick="location.href='index.php?do=orders'">確認</button>
-        </div>
+    </div>
+    <div class="ct">
+        <button type="button" onclick="location.href='index.php'">確認</button>
     </div>
 </div>
