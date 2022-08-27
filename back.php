@@ -1,6 +1,6 @@
 <?php
-$do=$_GET['do']??"main";
 include "./base.php";
+$do=$_GET['do']??"main";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- saved from url=(0055)?do=admin -->
@@ -11,7 +11,7 @@ include "./base.php";
 <link rel="stylesheet" href="css/css.css">
 <link href="css/s2.css" rel="stylesheet" type="text/css">
 <script src="js/jquery-1.9.1.min.js"></script>
-<script src="./js/main.js"></script>
+<script src="js/main.js"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@ include "./base.php";
   <div id="top" style=" background:#999 center; background-size:cover; " title="替代文字">
     <h1>ABC影城</h1>
   </div>
-  <div id="top2"> <a href="index.php">首頁</a> <a href="?do=orders">線上訂票</a> <a href="#">會員系統</a> <a href="./back.php">管理系統</a> </div>
+  <div id="top2"> <a href="index.php">首頁</a> <a href="index.php?do=orders">線上訂票</a> <a href="#">會員系統</a> <a href="back.php">管理系統</a> </div>
   <div id="text"> <span class="ct">最新活動</span>
     <marquee direction="right">
     ABC影城票價全面八折優惠1個月
@@ -33,8 +33,7 @@ include "./base.php";
     include "./back/main.php";
   }
   ?>
-
-  <div id="bo"> ©Copyright 2010~2014 ABC影城 版權所有 </div>
+  <div id="bo"> ©Copyright 2022~2022 ABC影城 版權所有 </div>
 </div>
 </body>
 </html>

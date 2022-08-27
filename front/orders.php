@@ -1,83 +1,74 @@
 <?php
-$mvs=$movie->all("  WHERE `sh`= 1 && `ondate` between '$start_day' AND '$today' order by `rank`");
-$id=$_GET['id']??$mvs[0]['id'];
+$id=$_GET['id']??0;
+$mvs=$movie->all($sh," && `ondate` between '$start_day' AND '$today' order by `rank`");
 ?>
 <div id="mm">
-<div id="menu" class="w60 mg">
-<table class="w100">
+<div id="order">
+  <h4 class="ct">線上訂票</h4>
+  <table class="w60 mg">
     <tr>
-        <td>電影:</td>
-        <td>
-        <select name="movie" id="movie">
-            <?php
-                foreach ($mvs as $key => $mv) {
-                    ?>
-                        <option value="<?=$mv['id'];?>" <?=($mv['id']==$id)?"selected":"";?>><?=$mv['name'];?></option>
-                    <?php
-                }
+      <td>電影:</td>
+      <td>
+        <select name="" id="m_s">
+          <?php
+          foreach ($mvs as $key => $mv) {
             ?>
+            <option value="<?=$mv['id'];?>" <?=($mv['id']==$id)?"selected":"";?>><?=$mv['name'];?></option>
+            <?php
+          }
+          ?>
         </select>
-        </td>
+      </td>
     </tr>
     <tr>
-        <td>日期:</td>
-        <td>
-            <select name="date" id="date">
-                
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>場次:</td>
-        <td>
-            <select name="session" id="session">
+      <td>日期:</td>
+      <td>
+        <select name="" id="d_s">
 
-            </select>
-        </td>
+        </select>
+      </td>
     </tr>
-</table>
-<div class="ct">
-    <button type="button" onclick="booking()">確定</button>
+    <tr>
+      <td>場次:</td>
+      <td>
+      <select name="" id="s_s">
+      </td>
+    </tr>
+  </table>
+  <div class="w100 ct">
+    <button type="button" onclick="get_booking()">確定</button>
     <button type="button" onclick="location.reload()">重置</button>
+  </div>
 </div>
-</div>
-<div id="booking" class="dpn"></div>
+<div id="booking" style="display:none;"></div>
 
-
 </div>
+
 <script>
-    let id=$('#movie').val();
-    get_date(id);
+let id=$('#m_s').val();
+get_date(id);
 
-    function get_date(id){
-        $('#date').load("./api/get_date.php",{id},()=>{
-            let date=$('#date').val();
-            get_session(id,date)
-        })
-    }
-    function get_session(id,date){
-        $('#session').load("./api/get_session.php",{id,date},()=>{
+function get_date(id){
+  $('#d_s').load("./api/get_date.php",{id},()=>{
+    let date=$('#d_s option:selected').val();
+    get_session(id,date);
+  })
+}
+function get_session(id,date){
+  $('#s_s').load("./api/get_session.php",{id,date},()=>{
+  
+  })
 
-        })
-    }
+}
 
-    $('#movie').on('change',function(){
-        id=$(this).val();
-        get_date(id)
+  function get_booking(){
+    $('#order').hide();
+    $('#booking').show();
+    let name=$('#m_s option:selected').text();
+    let date=$('#d_s').val();
+    let session=$('#s_s').val();
+    $('#booking').load("./api/booking.php",{name,date,session},()=>{
+
     })
-    $('#date').on('change',function(){
-         id=$('#movie').val();
-         date=$(this).val();
-        get_session(id,date)
-    })
-
-    function booking(){
-        let movie=$('#movie option:selected').text();
-        let date=$('#date').val();
-        let session=$('#session').val();
-        $('#menu').hide()
-        $('#booking').show()
-        $('#booking').load("./front/book_seats.php",{movie,date,session});    
-    }
+  }
 </script>
-
