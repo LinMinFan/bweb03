@@ -1,10 +1,11 @@
-
 <div id="mm">
-    <form action="./api/add.php?do=movie" method="post" enctype="multipart/form-data">
-    <div class="w100 h300 flex ">
-        <div class="w20">影片資料</div>
-        <div class="w80">
-            <table class="w100">
+<h3 class="ct">新增院線片</h3>
+<form action="./api/add.php?do=movies" method="post" enctype="multipart/form-data">
+<div class="w100 h400">
+<div class="w100 flex h300">
+    <div class="w20">影片資料</div>
+    <div class="w80">
+        <table class="w100">
             <tr>
                 <td>片名:</td>
                 <td>
@@ -15,17 +16,17 @@
                 <td>分級:</td>
                 <td>
                     <select name="level" id="">
-                    <option value="普遍級">普遍級</option>
-                    <option value="輔導級">輔導級</option>
-                    <option value="保護級">保護級</option>
-                    <option value="限制級">限制級</option>
-                    </select>(請選擇分級)
+                        <option value="普遍級">普遍級</option>
+                        <option value="輔導級">輔導級</option>
+                        <option value="保護級">保護級</option>
+                        <option value="限制級">限制級</option>
+                    </select>
                 </td>
             </tr>
             <tr>
                 <td>片長:</td>
                 <td>
-                <input type="text" name="length" id="">
+                    <input type="text" name="length" id="">
                 </td>
             </tr>
             <tr>
@@ -33,43 +34,43 @@
                 <td>
                     <select name="year" id="">
                         <?php
-                        for ($i=date("Y"); $i <= date("Y",strtotime("+2 years")); $i++) { 
+                        for ($i=date("Y"); $i <= date("Y",strtotime("+2 years")) ; $i++) { 
                             ?>
-                                <option value="<?=$i;?>"><?=$i;?></option>
+                            <option value="<?=$i;?>"><?=$i;?></option>
                             <?php
                         }
                         ?>
-                    </select> 年
+                    </select>年
                     <select name="month" id="">
                         <?php
-                        for ($i=1; $i <= 12; $i++) { 
+                        for ($i=1; $i <= 12 ; $i++) { 
                             ?>
-                                <option value="<?=$i;?>" <?=($i==date("m"))?"selected":"";?>><?=$i;?></option>
+                            <option value="<?=$i;?>" <?=(date("m")==$i)?"selected":"";?>><?=$i;?></option>
                             <?php
                         }
                         ?>
-                    </select> 月
+                    </select>月
                     <select name="day" id="">
                         <?php
-                        for ($i=1; $i <= 31; $i++) { 
+                        for ($i=1; $i <= 31 ; $i++) { 
                             ?>
-                                <option value="<?=$i;?>" <?=($i==date("d"))?"selected":"";?>><?=$i;?></option>
+                            <option value="<?=$i;?>" <?=(date("d")==$i)?"selected":"";?>><?=$i;?></option>
                             <?php
                         }
                         ?>
-                    </select> 日
+                    </select>日
                 </td>
             </tr>
             <tr>
                 <td>發行商:</td>
                 <td>
-                <input type="text" name="publish" id="">
+                    <input type="text" name="publish" id="">
                 </td>
             </tr>
             <tr>
                 <td>導演:</td>
                 <td>
-                <input type="text" name="director" id="">
+                    <input type="text" name="maker" id="">
                 </td>
             </tr>
             <tr>
@@ -81,21 +82,31 @@
             <tr>
                 <td>電影海報:</td>
                 <td>
-                    <input type="file" name="poster" id="" required>
+                    <input type="file" name="img" id="" required>
                 </td>
             </tr>
-            </table>
-        </div>
+        </table>
     </div>
-    <div class="w100 h150 flex flex_w">
-        <div class="w20">劇情簡介</div>
-        <div class="w80">
-            <textarea name="intro" id="" cols="30" rows="10"></textarea>
-        </div>
-        <div class="ct w100">
-            <input type="submit" value="新增">
-            <input type="reset" value="重置">
-        </div>
+</div>
+<div class="w100 flex h100">
+    <div class="w20">劇情簡介</div>
+    <div class="w80">
+        <table class="w100">
+            <tr>
+                <td>
+                    <textarea name="intro" style="width:300px;height:50px"></textarea>
+                </td>
+            </tr>
+        </table>
     </div>
-    </form>
+</div>
+<hr>
+<div class="ct">
+    <input type="submit" value="新增">
+    <input type="reset" value="重置">
+</div>
+</div>
+</form>
+
+
 </div>

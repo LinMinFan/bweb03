@@ -1,4 +1,4 @@
-# 題組二解題步驟
+# 題組三解題步驟
 
 ## 共同項目
 
@@ -56,9 +56,9 @@
         |length|int|--|--|--|--|
         |ondate|date|--|--|--|--|
         |publish|text|--|--|--|--|
-        |director|text|--|--|--|--|
-        |trailer|text|--|--|--|--|
-        |poster|text|--|--|--|--|
+        |maker|text|--|--|--|--|
+        |film|text|--|--|--|--|
+        |img|text|--|--|--|--|
         |intro|text|--|--|--|--|
         |sh|int|--|--|--|--|
         |rank|int|--|--|--|--|
@@ -69,11 +69,11 @@
         |--|--|--|--|--|--|
         |id|int|UNSIGNED|--|AI|--|
         |no|text|--|--|--|--|
-        |movie|text|--|--|--|--|
+        |name|text|--|--|--|--|
         |date|date|--|--|--|--|
         |session|text|--|--|--|--|
         |qt|int|--|--|--|--|
-        |set|text|--|--|--|--|
+        |seat|text|--|--|--|--|
 
 
 * 資料庫寫入語法 (加快建立資料庫速度)

@@ -13,7 +13,7 @@ select,select option
 input[type='text'],input[type='file'],input[type='password'],textarea,.button
 {
 	width:200px;
-	/* font-size:16px; */
+	font-size:16px;
 	padding:7px 5px 7px 5px;
 	background:#4C4C4C;
 	color:#E7E7E7;
@@ -187,7 +187,9 @@ input:focus
 {
 	cursor:default;
 }
-
+.blo{
+	display: block;
+}
 .flex{
 	display: flex;
 }
@@ -197,23 +199,20 @@ input:focus
 .flex_jb{
 	justify-content: space-between;
 }
-.flex_je{
-	justify-content: end;
-}
 .flex_ac{
 	align-items: center;
 }
 .flex_w{
 	flex-wrap: wrap;
 }
+.dp_n{
+	display: none;
+}
 .float_l{
 	float: left;
 }
 .float_r{
 	float: right;
-}
-.blo{
-	display: block;
 }
 .pos_r{
 	position: relative;
@@ -224,6 +223,42 @@ input:focus
 .pos_ct{
 	left: 50%;
 	transform: translateX(-50%);
+}
+.mg{
+	margin: 0 auto;
+}
+.ofy_s{
+	overflow-y: scroll;
+}
+.h0{
+	height: 0px;
+}
+.h50{
+	height: 50px;
+}
+.h100{
+	height: 100px;
+}
+.h150{
+	height: 150px;
+}
+.h200{
+	height: 200px;
+}
+.h250{
+	height: 250px;
+}
+.h300{
+	height: 300px;
+}
+.h350{
+	height: 350px;
+}
+.h400{
+	height: 400px;
+}
+.h500{
+	height: 500px;
 }
 .w5{
 	width: 5%;
@@ -270,71 +305,24 @@ input:focus
 .w100{
 	width: 100%;
 }
-.h100{
-	height: 100px;
+.fs12{
+	font-size: 12px;
 }
-.h150{
-	height: 150px;
+.dpn{
+	display: none;
 }
-.h250{
-	height: 250px;
-}
-.h200{
-	height: 200px;
-}
-.h300{
-	height: 300px;
-}
-.h350{
-	height: 350px;
-}
-.h400{
-	height: 400px;
-}
-.h500{
-	height: 500px;
-}
-.seats{
-	width: 540px;
-	height: 370px;
-	background: url(../icon/03D04.png);
-}
-.seat_bg{
-	width: 312px;
-	height: 350px;
-	background: #f00;
-}
-.seat{
-	width: 60px;
-	height: 80px;
-	background: url(../icon/03D02.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-.seat.active{
-	background: url(../icon/03D03.png);
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-
 .left{
-	border-top: 10px solid transparent;
-	border-right: 15px solid #000;
-	border-bottom: 10px solid transparent;
-	border-left: 10px solid transparent;
+	height: 0px;
+	border-top:10px solid transparent ;
+	border-right:20px solid #000 ;
+	border-bottom:10px solid transparent ;
+	border-left:10px solid transparent ;
 }
 .right{
-	border-top: 10px solid transparent;
-	border-left: 15px solid #000;
-	border-bottom: 10px solid transparent;
-	border-right: 10px solid transparent;
+	height: 0px;
+	border-top:10px solid transparent ;
+	border-left:20px solid #000 ;
+	border-bottom:10px solid transparent ;
+	border-right:10px solid transparent ;
 }
-.mg{
-	margin: 0 auto;
-}
-.o_h{
-	overflow: hidden;
-}
-.oy_s{
-	overflow-y: scroll;
-}
+

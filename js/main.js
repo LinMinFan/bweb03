@@ -3,8 +3,8 @@ function del(table,id){
         location.reload();
     })
 }
-function sh(table,id){
-    $.post("./api/sh.php",{table,id},()=>{
+function sh(table,id,sh){
+    $.post("./api/sh.php",{table,id,sh},()=>{
         location.reload();
     })
 }
