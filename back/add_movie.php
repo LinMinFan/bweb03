@@ -1,9 +1,9 @@
 <div id="mm">
-<h3 class="ct">新增院線片</h3>
-<form action="./api/add.php?do=movies" method="post" enctype="multipart/form-data">
-<div class="w100 h400">
-<div class="w100 flex h300">
-    <div class="w20">影片資料</div>
+<div class="ct a rb" style="position:relative; width:101.5%; left:-1%; padding:3px; top:-9px;"> <a href="?do=admin&redo=tit">網站標題管理</a>| <a href="?do=go">動態文字管理</a>| <a href="?do=posters">預告片海報管理</a>| <a href="?do=movies">院線片管理</a>| <a href="?do=orders">電影訂票管理</a> </div>
+
+<form action="./api/save_movie.php" method="post" enctype="multipart/form-data">
+<div class="w100 h350 flex">
+    <div class="w10">影片資料</div>
     <div class="w80">
         <table class="w100">
             <tr>
@@ -42,19 +42,19 @@
                         ?>
                     </select>年
                     <select name="month" id="">
-                        <?php
+                    <?php
                         for ($i=1; $i <= 12 ; $i++) { 
                             ?>
-                            <option value="<?=$i;?>" <?=(date("m")==$i)?"selected":"";?>><?=$i;?></option>
+                            <option value="<?=$i;?>"><?=$i;?></option>
                             <?php
                         }
                         ?>
                     </select>月
                     <select name="day" id="">
-                        <?php
+                    <?php
                         for ($i=1; $i <= 31 ; $i++) { 
                             ?>
-                            <option value="<?=$i;?>" <?=(date("d")==$i)?"selected":"";?>><?=$i;?></option>
+                            <option value="<?=$i;?>"><?=$i;?></option>
                             <?php
                         }
                         ?>
@@ -82,31 +82,21 @@
             <tr>
                 <td>電影海報:</td>
                 <td>
-                    <input type="file" name="img" id="" required>
+                <input type="file" name="img" id="" required>
                 </td>
             </tr>
         </table>
     </div>
 </div>
-<div class="w100 flex h100">
-    <div class="w20">劇情簡介</div>
+<div class="w100 h100 flex">
+    <div class="w10">劇情簡介</div>
     <div class="w80">
-        <table class="w100">
-            <tr>
-                <td>
-                    <textarea name="intro" style="width:300px;height:50px"></textarea>
-                </td>
-            </tr>
-        </table>
+        <textarea name="intro" style="width: 350px;height:60px"></textarea>
     </div>
 </div>
-<hr>
-<div class="ct">
+<div class="ct w100">
     <input type="submit" value="新增">
     <input type="reset" value="重置">
 </div>
-</div>
 </form>
-
-
 </div>

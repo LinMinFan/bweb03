@@ -10,7 +10,7 @@ class db{
     function __construct($table)
     {
         $this->table=$table;
-        $this->pdo=new PDO($this->dsn,"root","");
+        $this->pdo=new PDO($this->dsn,"root","");      
     }
 
     function q($sql){
@@ -48,8 +48,8 @@ class db{
             }
         }
         if (isset($arg[1])) {
-                $sql.=$arg[1];
-            }
+            $sql.=$arg[1];
+        }
         //echo $sql;
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -70,7 +70,7 @@ class db{
         if (isset($array['id'])) {
             $tmp=$this->to_str($array);
             $sql="UPDATE $this->table SET ".join(",",$tmp)." WHERE `id`=".$array['id'];
-        }else{
+        }else {
             $sql="INSERT INTO $this->table (`".join("`, `",array_keys($array))."`) VALUES ('".join("','",$array)."')";
         }
         //echo $sql;
@@ -88,12 +88,11 @@ class db{
             }
         }
         if (isset($arg[1])) {
-                $sql.=$arg[1];
-            }
+            $sql.=$arg[1];
+        }
         //echo $sql;
         return $this->pdo->query($sql)->fetchColumn();
     }
-
 }
 
 function dd($array){
@@ -107,12 +106,14 @@ function to($url){
 }
 
 $movies=new db('movies');
-$orders=new db('orders');
 $posters=new db('posters');
+$orders=new db('orders');
 $sh=['sh'=>1];
+$rank="order by `rank`";
 $today=date("Y-m-d");
 $start_day=date("Y-m-d",strtotime("-2 days"));
 
 $level_icon=['普遍級'=>'03C01.png','輔導級'=>'03C02.png','保護級'=>'03C03.png','限制級'=>'03C04.png'];
-$session_time=['1'=>'14:00~16:00','2'=>'16:00~18:00','3'=>'18:00~20:00','4'=>'20:00~22:00','5'=>'22:00~24:00'];
+$ss_times=['1'=>'14:00~16:00','2'=>'16:00~18:00','3'=>'18:00~20:00','4'=>'20:00~22:00','5'=>'22:00~24:00'];
 ?>
+

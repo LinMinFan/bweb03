@@ -3,10 +3,10 @@ include "../base.php";
 
 if (!empty($_POST['id'])) {
     foreach ($_POST['id'] as $key => $id) {
-        $data=${$_GET['do']}->find($id);
         if (isset($_POST['del']) && in_array($id,$_POST['del'])) {
             ${$_GET['do']}->del($id);
         }else{
+            $data=${$_GET['do']}->find($id);
             switch ($_GET['do']) {
                 case 'posters':
                     $data['name']=$_POST['name'][$key];
@@ -27,3 +27,4 @@ if (!empty($_POST['id'])) {
     }
 }
 to("../back.php?do={$_GET['do']}");
+//name rank sh ani

@@ -5,27 +5,27 @@ $m=(int)explode("-",$mv['ondate'])[1];
 $d=(int)explode("-",$mv['ondate'])[2];
 ?>
 <div id="mm">
-<h3 class="ct">新增院線片</h3>
-<form action="./api/edit_movie.php?do=movies" method="post" enctype="multipart/form-data">
-<div class="w100 h400">
-<div class="w100 flex h300">
-    <div class="w20">影片資料</div>
+<div class="ct a rb" style="position:relative; width:101.5%; left:-1%; padding:3px; top:-9px;"> <a href="?do=admin&redo=tit">網站標題管理</a>| <a href="?do=go">動態文字管理</a>| <a href="?do=posters">預告片海報管理</a>| <a href="?do=movies">院線片管理</a>| <a href="?do=orders">電影訂票管理</a> </div>
+
+<form action="./api/save_movie.php" method="post" enctype="multipart/form-data">
+<div class="w100 h350 flex">
+    <div class="w10">影片資料</div>
     <div class="w80">
         <table class="w100">
             <tr>
                 <td>片名:</td>
                 <td>
-                    <input type="text" name="name" id="" value="<?=$mv['name'];?>">
+                    <input type="text" name="name"  value="<?=$mv['name'];?>">
                 </td>
             </tr>
             <tr>
                 <td>分級:</td>
                 <td>
                     <select name="level" id="">
-                        <option value="普遍級" <?=($mv['level']=='普遍級')?"selected":"";?>>普遍級</option>
-                        <option value="輔導級" <?=($mv['level']=='輔導級')?"selected":"";?>>輔導級</option>
-                        <option value="保護級" <?=($mv['level']=='保護級')?"selected":"";?>>保護級</option>
-                        <option value="限制級" <?=($mv['level']=='限制級')?"selected":"";?>>限制級</option>
+                        <option value="普遍級" <?=($mv['name']=='普遍級')?"selected":"";?>>普遍級</option>
+                        <option value="輔導級" <?=($mv['name']=='輔導級')?"selected":"";?>>輔導級</option>
+                        <option value="保護級" <?=($mv['name']=='保護級')?"selected":"";?>>保護級</option>
+                        <option value="限制級" <?=($mv['name']=='限制級')?"selected":"";?>>限制級</option>
                     </select>
                 </td>
             </tr>
@@ -48,7 +48,7 @@ $d=(int)explode("-",$mv['ondate'])[2];
                         ?>
                     </select>年
                     <select name="month" id="">
-                        <?php
+                    <?php
                         for ($i=1; $i <= 12 ; $i++) { 
                             ?>
                             <option value="<?=$i;?>" <?=($i==$m)?"selected":"";?>><?=$i;?></option>
@@ -57,7 +57,7 @@ $d=(int)explode("-",$mv['ondate'])[2];
                         ?>
                     </select>月
                     <select name="day" id="">
-                        <?php
+                    <?php
                         for ($i=1; $i <= 31 ; $i++) { 
                             ?>
                             <option value="<?=$i;?>" <?=($i==$d)?"selected":"";?>><?=$i;?></option>
@@ -70,13 +70,13 @@ $d=(int)explode("-",$mv['ondate'])[2];
             <tr>
                 <td>發行商:</td>
                 <td>
-                    <input type="text" name="publish" id="" value="<?=$mv['publish'];?>">
+                    <input type="text" name="publish" value="<?=$mv['publish'];?>">
                 </td>
             </tr>
             <tr>
                 <td>導演:</td>
                 <td>
-                    <input type="text" name="maker" id="" value="<?=$mv['maker'];?>">
+                    <input type="text" name="maker" value="<?=$mv['maker'];?>">
                 </td>
             </tr>
             <tr>
@@ -88,32 +88,22 @@ $d=(int)explode("-",$mv['ondate'])[2];
             <tr>
                 <td>電影海報:</td>
                 <td>
-                    <input type="file" name="img" id="" required>
+                <input type="file" name="img" id="">
                 </td>
             </tr>
+            <input type="hidden" name="id" value="<?=$mv['id'];?>" required>
         </table>
     </div>
 </div>
-<div class="w100 flex h100">
-    <div class="w20">劇情簡介</div>
+<div class="w100 h100 flex">
+    <div class="w10">劇情簡介</div>
     <div class="w80">
-        <table class="w100">
-            <tr>
-                <td>
-                    <textarea name="intro" style="width:300px;height:50px"><?=$mv['intro'];?></textarea>
-                </td>
-                <input type="hidden" name="id" value="<?=$mv['id'];?>">
-            </tr>
-        </table>
+        <textarea name="intro" style="width: 350px;height:60px"><?=$mv['intro'];?></textarea>
     </div>
 </div>
-<hr>
-<div class="ct">
+<div class="ct w100">
     <input type="submit" value="編輯">
     <input type="reset" value="重置">
 </div>
-</div>
 </form>
-
-
 </div>

@@ -4,7 +4,6 @@ body
 {
 	background:url(../icon/b.png);
 	font-family:微軟正黑體;
-	box-sizing: border-box;
 }
 select,select option
 {
@@ -104,7 +103,7 @@ input:focus
 #mm
 {
 	padding:10px;
-	height:520px;
+	min-height:520px;
 }
 #bo
 {
@@ -187,8 +186,27 @@ input:focus
 {
 	cursor:default;
 }
-.blo{
-	display: block;
+.mg{
+	margin: 0 auto;
+}
+.oy_s{
+	overflow-y: scroll;
+}
+.fs12{
+	font-size: 12px;
+}
+.pos_r{
+	position: relative;
+}
+.pos_a{
+	position: absolute;
+}
+.pos_ct{
+	left: 50%;
+	transform: translateX(-50%);
+}
+.dpn{
+	display: none;
 }
 .flex{
 	display: flex;
@@ -205,36 +223,14 @@ input:focus
 .flex_w{
 	flex-wrap: wrap;
 }
-.dp_n{
-	display: none;
-}
 .float_l{
 	float: left;
 }
 .float_r{
 	float: right;
 }
-.pos_r{
-	position: relative;
-}
-.pos_a{
-	position: absolute;
-}
-.pos_ct{
-	left: 50%;
-	transform: translateX(-50%);
-}
-.mg{
-	margin: 0 auto;
-}
-.ofy_s{
-	overflow-y: scroll;
-}
-.h0{
-	height: 0px;
-}
-.h50{
-	height: 50px;
+.blo{
+	display: block;
 }
 .h100{
 	height: 100px;
@@ -256,6 +252,9 @@ input:focus
 }
 .h400{
 	height: 400px;
+}
+.h450{
+	height: 450px;
 }
 .h500{
 	height: 500px;
@@ -305,24 +304,3 @@ input:focus
 .w100{
 	width: 100%;
 }
-.fs12{
-	font-size: 12px;
-}
-.dpn{
-	display: none;
-}
-.left{
-	height: 0px;
-	border-top:10px solid transparent ;
-	border-right:20px solid #000 ;
-	border-bottom:10px solid transparent ;
-	border-left:10px solid transparent ;
-}
-.right{
-	height: 0px;
-	border-top:10px solid transparent ;
-	border-left:20px solid #000 ;
-	border-bottom:10px solid transparent ;
-	border-right:10px solid transparent ;
-}
-

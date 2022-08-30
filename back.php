@@ -19,20 +19,20 @@ include "./base.php";
   <div id="top" style=" background:#999 center; background-size:cover; " title="替代文字">
     <h1>ABC影城</h1>
   </div>
-  <div id="top2"> <a href="./index.php">首頁</a> <a href="index.php?do=orders">線上訂票</a> <a href="#">會員系統</a> <a href="./back.php">管理系統</a> </div>
+  <div id="top2"> <a href="./index.php">首頁</a> <a href="./index.php?do=orders">線上訂票</a> <a href="#">會員系統</a> <a href="./back.php">管理系統</a> </div>
   <div id="text"> <span class="ct">最新活動</span>
     <marquee direction="right">
     ABC影城票價全面八折優惠1個月
     </marquee>
   </div>
   <?php
-$file="./back/$do.php";
-if (file_exists(($file))) {
-  include $file;
-}else {
-  include "./back/main.php";
-}
-?>
+  $file="./back/$do.php";
+  if (file_exists($file)) {
+    include $file;
+  }else {
+    include "./back/main.php";
+  }
+  ?>
   <div id="bo"> ©Copyright 2022~2022 ABC影城 版權所有 </div>
 </div>
 </body>

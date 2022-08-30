@@ -1,13 +1,12 @@
 <?php
 include "../base.php";
-$mv=$movies->find($_POST['id']);
+$name=$movies->find($_POST['id'])['name'];
 $date=$_POST['date'];
-$times=(date("H")-12<0)?0:floor((date("H")-12)/2);
+$times=(date("H")-12<0)?0:floor((date("H")-12)/2)+1;
 
-
-for ($i=$times+1; $i <= 5; $i++) {
-    $last_s=20-($orders->math('sum','qt',['name'=>$mv['name'],'date'=>$date,'session'=>$session_time[$i]]));
+for ($i=$times; $i <= 5 ; $i++) {
+    $last=20-($orders->math('sum','qt',['name'=>$name,'date'=>$date,'session'=>$ss_times[$i]])) ;
     ?>
-        <option value="<?=$session_time[$i];?>"><?=$session_time[$i];?> 剩餘座位<span id="last_s"><?=$last_s;?></span></option>
+    <option value="<?=$ss_times[$i];?>"><?=$ss_times[$i];?> 剩餘座位 <?=$last;?></option>
     <?php
 }

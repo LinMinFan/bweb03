@@ -1,79 +1,87 @@
-﻿<?php
+<?php
 $id=$_GET['id']??0;
 ?>
 <div id="mm">
-  <div class="w100" id="orders">
-  <h3 class="ct">線上訂票</h3>
-  <table class="w60 mg">
-    <tr>
-      <td>電影"</td>
-      <td>
-        <select name="name" id="sn">
-          <?php
-          foreach ($movies->all($sh, " &&  `ondate` BETWEEN '$start_day' AND '$today' order by `rank`") as $key => $mv) {
-            ?>
-            <option value="<?=$mv['id'];?>"<?=($mv['id']==$id)?"selected":"";?>><?=$mv['name'];?></option>
-            <?php
-          }
-          ?>
-        </select>
-      </td>
-    </tr>
-    <tr>
-      <td>日期:</td>
-      <td>
-      <select name="date" id="sd">
+    <div id="orders">
+        <h3 class="ct">線上訂票</h3>
+        <table class="w60 mg">
+            <tr>
+                <td>電影:</td>
+                <td>
+                    <select name="" id="name">
+                        <?php
+                        foreach ($movies->all(" WHERE `sh`=1 && `ondate` between '$start_day' AND '$today'") as $key => $mv) {
+                            ?>
+                            <option value="<?=$mv['id'];?>" <?=($mv['id']==$id)?"selected":"";?>><?=$mv['name'];?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>日期:</td>
+                <td>
+                    <select name="" id="date">
+                        <?php
 
-      </select>
-      </td>
-    </tr>
-    <tr>
-      <td>場次:</td>
-      <td>
-      <select name="session" id="ss">
+                        ?>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>場次:</td>
+                <td>
+                    <select name="" id="session">
+                        <?php
 
-      </select>
-      </td>
-    </tr>
-  </table>
-  <div class="ct">
-    <button onclick="booking()">確定</button>
-    <button onclick="location.reload()">重置</button>
-  </div>
-</div>
-<div class="w100" id="booking" style="display:none;"></div>
+                        ?>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <div class="ct">
+            <button onclick="booking()">確定</button>
+            <button onclick="reset()">重製</button>
+        </div>
+    </div>
+    <div class="dpn" id="booking">
+
+    </div>
 </div>
 <script>
-  let id=$('#sn option:selected').val();
-  get_date(id);
-  $('#sn').on('change',function(){
-    id=$('#sn option:selected').val();
-    get_date(id);
-  })
-  $('#sd').on('change',function(){
-    date=$('#sd option:selected').val();
-      get_session(id,date);
-  })
-  function get_date(id){
-    $('#sd').load("./api/get_date.php",{id},()=>{
-      let date=$('#sd option:selected').val();
-      get_session(id,date);
+let id=$('#name').val();
+get_date(id);
+function get_date(id){
+    $('#date').load("./api/get_date.php",{id},function(){
+        let date=$('#date').val();
+        get_session(id,date);
     })
-  }
-  function get_session(id,date){
-    $('#ss').load("./api/get_session.php",{id,date},()=>{
+}
+
+function get_session(id,date){
+    $('#session').load("./api/get_session.php",{id,date},function(){
 
     })
-  }
+}
+$('#name').on('change',function(){
+     id=$('#name option:selected').val();
+     get_date(id)
+})
+$('#date').on('change',function(){
+    id=$('#name option:selected').val();
+    let date=$('#date option:selected').val();
+        get_session(id,date);
+})
 
-  function booking(){
-    let name=$('#sn option:selected').text();
-    let date=$('#sd option:selected').val();
-    let session=$('#ss option:selected').val();
-    $('#orders').hide();
+function booking(){
+    id=$('#name option:selected').val();
+    let date=$('#date option:selected').val();
+    let session=$('#session option:selected').val();
     $('#booking').show();
-    $('#booking').load("./api/booking.php",{name,date,session},()=>{
+    $('#orders').hide();
+    $('#booking').load("./front/booking.php",{id,date,session},function(){
 
-    });
-  }
+    })
+}
 </script>

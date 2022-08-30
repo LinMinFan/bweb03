@@ -1,6 +1,5 @@
 <?php
 include "../base.php";
-
-$data=${$_POST['table']}->find($_POST['id']);
-$data['sh']=$_POST['sh'];
-${$_POST['table']}->save($data);
+$do=$_POST['table'];
+unset($_POST['table']);
+$$do->save($_POST);
