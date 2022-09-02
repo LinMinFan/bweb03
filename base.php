@@ -10,11 +10,7 @@ class db{
     function __construct($table)
     {
         $this->table=$table;
-        $this->pdo=new PDO($this->dsn,"root","");      
-    }
-
-    function q($sql){
-        return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+        $this->pdo=new PDO($this->dsn,"root","");
     }
 
     function to_str($array){
@@ -46,9 +42,9 @@ class db{
             }else {
                 $sql.=$arg[0];
             }
-        }
-        if (isset($arg[1])) {
-            $sql.=$arg[1];
+            if (isset($arg[1])) {
+                $sql.=$arg[1];
+            }
         }
         //echo $sql;
         return $this->pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
@@ -86,9 +82,9 @@ class db{
             }else {
                 $sql.=$arg[0];
             }
-        }
-        if (isset($arg[1])) {
-            $sql.=$arg[1];
+            if (isset($arg[1])) {
+                $sql.=$arg[1];
+            }
         }
         //echo $sql;
         return $this->pdo->query($sql)->fetchColumn();
@@ -106,14 +102,13 @@ function to($url){
 }
 
 $movies=new db('movies');
-$posters=new db('posters');
 $orders=new db('orders');
+$posters=new db('posters');
 $sh=['sh'=>1];
-$rank="order by `rank`";
 $today=date("Y-m-d");
 $start_day=date("Y-m-d",strtotime("-2 days"));
-
 $level_icon=['普遍級'=>'03C01.png','輔導級'=>'03C02.png','保護級'=>'03C03.png','限制級'=>'03C04.png'];
 $ss_times=['1'=>'14:00~16:00','2'=>'16:00~18:00','3'=>'18:00~20:00','4'=>'20:00~22:00','5'=>'22:00~24:00'];
+$rank=" order by `rank`";
 ?>
 

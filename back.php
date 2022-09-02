@@ -29,7 +29,7 @@ include "./base.php";
   $file="./back/$do.php";
   if (file_exists($file)) {
     include $file;
-  }else {
+  }else{
     include "./back/main.php";
   }
   ?>

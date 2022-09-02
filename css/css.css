@@ -189,11 +189,32 @@ input:focus
 .mg{
 	margin: 0 auto;
 }
-.oy_s{
-	overflow-y: scroll;
+.float_l{
+	float: left;
 }
-.fs12{
-	font-size: 12px;
+.float_r{
+	float: right;
+}
+.blo{
+	display: block;
+}
+.dpn{
+	display: none;
+}
+.flex{
+	display: flex;
+}
+.flex_w{
+	flex-wrap: wrap;
+}
+.flex_jc{
+	justify-content: center;
+}
+.flex_jb{
+	justify-content: space-between;
+}
+.flex_ac{
+	align-items: center;
 }
 .pos_r{
 	position: relative;
@@ -205,32 +226,17 @@ input:focus
 	left: 50%;
 	transform: translateX(-50%);
 }
+.oy_s{
+	overflow-y: scroll;
+}
+.fs12{
+	font-size: 12px;
+}
 .dpn{
 	display: none;
 }
-.flex{
-	display: flex;
-}
-.flex_jc{
-	justify-content: center;
-}
-.flex_jb{
-	justify-content: space-between;
-}
-.flex_ac{
-	align-items: center;
-}
-.flex_w{
-	flex-wrap: wrap;
-}
-.float_l{
-	float: left;
-}
-.float_r{
-	float: right;
-}
-.blo{
-	display: block;
+.h0{
+	height: 0px;
 }
 .h100{
 	height: 100px;
@@ -258,6 +264,9 @@ input:focus
 }
 .h500{
 	height: 500px;
+}
+.h50{
+	height: 50px;
 }
 .w5{
 	width: 5%;

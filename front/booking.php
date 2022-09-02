@@ -1,15 +1,21 @@
-<?php
+﻿<?php
 include "../base.php";
-$mv=$movies->find($_POST['id']);
-$seats=(!empty($orders->find(['name'=>$mv['name'],'date'=>$_POST['date'],'session'=>$_POST['session']])['seats']))?unserialize($orders->find(['name'=>$mv['name'],'date'=>$_POST['date'],'session'=>$_POST['session']])['seats']):[];
+$_POST['name'];
+$_POST['date'];
+$_POST['session'];
+$qt=[];
+foreach ($orders->all(['name'=>$_POST['name'],'date'=>$_POST['date'],'session'=>$_POST['session']]) as $key => $ord) {
+    $qt=array_merge($qt,unserialize($ord['seats']));
+}
+$countO=count($qt);
 ?>
 <style>
-    .bg_box{
+    .seats_bg{
         width: 540px;
         height: 370px;
         background: url(./icon/03D04.png);
     }
-    .seats_bg{
+    .seats{
         top: 20px;
         width: 316px;
         height: 340px;
@@ -18,85 +24,77 @@ $seats=(!empty($orders->find(['name'=>$mv['name'],'date'=>$_POST['date'],'sessio
         width: 60px;
         height: 80px;
         background: url(./icon/03D02.png);
-        background-repeat: no-repeat;
         background-size: cover;
+        background-repeat: no-repeat;
     }
     .seat.active{
+        width: 60px;
+        height: 80px;
         background: url(./icon/03D03.png);
-        background-repeat: no-repeat;
         background-size: cover;
+        background-repeat: no-repeat;
     }
     .s_ck{
-        right:  0;
+        right: 0;
         bottom: 0;
     }
 </style>
-<div class="bg_box pos_r mg">
-    <div class="seats_bg pos_a pos_ct flex flex_w flex_jb" data-text="">
-    <?php
+<div class="w100 pos_r" style="height: 370px;">
+    <div class="pos_a pos_ct seats_bg">
+    <div class="seats flex flex_jb flex_ac flex_w pos_a pos_ct">
+        <?php
         for ($i=0; $i < 20; $i++) { 
-            if (in_array($i,$seats)) {
+            if (in_array($i,$qt)) {
                 ?>
-                <div class="seat pos_r active">
-                </div>
-            <?php
+                    <div class="seat active"></div>
+                <?php
             }else{
                 ?>
-                <div class="seat pos_r">
-                    <input class="pos_a s_ck" type="checkbox" name="" value="<?=$i;?>">
-                </div>
-            <?php
+                    <div class="seat pos_r">
+                        <input class="pos_a s_ck" type="checkbox" name="" value="<?=$i;?>">
+                    </div>
+                <?php
             }
         }
-    ?>
+        ?>
     </div>
-
+    </div>
 </div>
-<div class="w100 ct">
-    <table class="w60 mg">
-        <tr>
-            <td>您選擇的電影是: <span class="name"><?=$mv['name'];?></span></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>您選擇的時刻是: <span class="date"><?=$_POST['date'];?></span> <span class="session"><?=$_POST['session'];?></span></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>您已經勾選<span id="len"></span>張票，最多可以購買四張票</td>
-            <td></td>
-        </tr>
-    </table>
-    <div class="ct">
-    <button onclick="$('#booking').hide(),$('#orders').show()">上一步</button>    
-    <button onclick="tickets()">訂購</button>    
-    </div>
+<div class="w100 h100">
+    <div class="ct">您選擇的電影是: <span id="name"><?=$_POST['name'];?></span></div>
+    <div class="ct">您選擇的時刻是: <span id="date"><?=$_POST['date'];?></span> <span id="session"><?=$_POST['session'];?></span></div>
+    <div class="ct">您已勾選<span id="len" data-text=""></span>張票，最多可購買四張票</div>
+</div>
+<div class="ct">
+    <button onclick="$('#booking').hide(),$('#orders').show();">上一步</button>
+    <button onclick="tickets()">訂購</button>
 </div>
 <script>
     let seats=new Array;
     $('.s_ck').on('change',function(){
-    let len=seats.length;
-    if ($(this).prop('checked')) {
-        if (len >= 4) {
-            alert("最多只能勾選四個座位");
-            $(this).prop('checked',false);
+        let len=$('.s_ck:checked').length;
+        if ($(this).prop('checked')) {
+            if (len>4) {
+                alert("最多只能買四張票");
+                $(this).prop('checked',false);
+            }else{
+                $(this).parent().toggleClass('active');
+                seats.push($(this).val());
+            }
         }else{
-            seats.push($(this).val());
             $(this).parent().toggleClass('active');
+            seats.splice(seats.indexOf($(this).val()),1);
         }
-    }else{
-        seats.splice(seats.indexOf($(this).val()),1);
-        $(this).parent().toggleClass('active');
-    }
-    $('#len').text(seats.length);
-    $('.seats_bg').data('text',seats);
-})
-function tickets(){
-    let name=$('.name').text();
-    let session=$('.session').text();
-    let date=$('.date').text();
-    $.post("./api/result.php",{name,date,session,seats},(no)=>{
-        location.href="?do=result&no="+no;
+        $('#len').text($('.s_ck:checked').length);
+        $('#len').data('text',seats);
     })
-}
+
+    function tickets(){
+        let name=$('#name').text();
+        let date=$('#date').text();
+        let session=$('#session').text();
+        $.post("./api/tickets.php",{name,date,session,seats},(no)=>{
+            front(`result&no=${no}`);
+        })
+    }
 </script>
