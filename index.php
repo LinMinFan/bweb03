@@ -25,14 +25,14 @@ include "./base.php";
     ABC影城票價全面八折優惠1個月
     </marquee>
   </div>
-  <?php
+ <?php
   $file="./front/$do.php";
   if (file_exists($file)) {
     include $file;
-  }else{
+  }else {
     include "./front/main.php";
   }
-  ?>
+ ?>
   <div id="bo"> ©Copyright 2022~2022 ABC影城 版權所有 </div>
 </div>
 </body>

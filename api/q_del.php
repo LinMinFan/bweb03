@@ -1,4 +1,4 @@
 <?php
 include "../base.php";
 
-$orders->del([$_POST['way']=>$_POST['data']]);
+${$_POST['table']}->del([$_POST['way']=>$_POST['data']]);

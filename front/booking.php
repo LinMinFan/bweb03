@@ -1,100 +1,97 @@
 ﻿<?php
 include "../base.php";
-$_POST['name'];
-$_POST['date'];
-$_POST['session'];
-$qt=[];
+$seats=[];
 foreach ($orders->all(['name'=>$_POST['name'],'date'=>$_POST['date'],'session'=>$_POST['session']]) as $key => $ord) {
-    $qt=array_merge($qt,unserialize($ord['seats']));
-}
-$countO=count($qt);
+  $seats=array_merge($seats,unserialize($ord['seats']));
+};
 ?>
 <style>
-    .seats_bg{
-        width: 540px;
-        height: 370px;
-        background: url(./icon/03D04.png);
-    }
-    .seats{
-        top: 20px;
-        width: 316px;
-        height: 340px;
-    }
-    .seat{
-        width: 60px;
-        height: 80px;
-        background: url(./icon/03D02.png);
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .seat.active{
-        width: 60px;
-        height: 80px;
-        background: url(./icon/03D03.png);
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
-    .s_ck{
-        right: 0;
-        bottom: 0;
-    }
+  .seats_bg{
+    width: 540px;
+    height: 370px;
+    background: url(./icon/03D04.png);
+  }
+  .seats{
+    width: 314px;
+    height: 340px;
+    top: 20px;
+  }
+  .seat{
+    width: 60px;
+    height: 80px;
+    background: url(./icon/03D02.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .seat.active{
+    width: 60px;
+    height: 80px;
+    background: url(./icon/03D03.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .ck_box{
+    right: 0;
+    bottom: 0;
+  }
 </style>
-<div class="w100 pos_r" style="height: 370px;">
-    <div class="pos_a pos_ct seats_bg">
-    <div class="seats flex flex_jb flex_ac flex_w pos_a pos_ct">
-        <?php
-        for ($i=0; $i < 20; $i++) { 
-            if (in_array($i,$qt)) {
-                ?>
-                    <div class="seat active"></div>
-                <?php
+<div id="mm">
+    <div class="w100 h400 pos_r t_bg">
+      <div class="seats_bg pos_a pos_ct">
+        <div class="seats pos_r pos_ct flex flex_w flex_jb flex_ac">
+          <?php
+          for ($i=0; $i < 20; $i++) { 
+            if (in_array($i,$seats)) {
+              ?>
+              <div class="seat active"></div>
+              <?php
             }else{
-                ?>
-                    <div class="seat pos_r">
-                        <input class="pos_a s_ck" type="checkbox" name="" value="<?=$i;?>">
-                    </div>
-                <?php
+              ?>
+              <div class="seat pos_r">
+                <input class="pos_a ck_box" type="checkbox" name="" value="<?=$i;?>">
+              </div>
+              <?php
             }
-        }
-        ?>
+          }
+          ?>
+        </div>
+      </div>
     </div>
+    <div class="w100 h100 pos_r ct">
+      <div>您選擇的電影是: <span class="name"><?=$_POST['name'];?></span> </div>
+      <div>您選擇的時刻是: <span class="date"><?=$_POST['date'];?></span> <span class="session"><?=$_POST['session'];?></span></div>
+      <div>您已勾選<span class="len"></span>張票，最多可以購買四張票</div>
+      <div class="ct">
+        <button onclick="$('#booking').hide(),$('#orders').show()">上一步</button>
+        <button onclick="tickets()">訂購</button>
+      </div>
     </div>
-</div>
-<div class="w100 h100">
-    <div class="ct">您選擇的電影是: <span id="name"><?=$_POST['name'];?></span></div>
-    <div class="ct">您選擇的時刻是: <span id="date"><?=$_POST['date'];?></span> <span id="session"><?=$_POST['session'];?></span></div>
-    <div class="ct">您已勾選<span id="len" data-text=""></span>張票，最多可購買四張票</div>
-</div>
-<div class="ct">
-    <button onclick="$('#booking').hide(),$('#orders').show();">上一步</button>
-    <button onclick="tickets()">訂購</button>
-</div>
-<script>
+  </div>
+  <script>
     let seats=new Array;
-    $('.s_ck').on('change',function(){
-        let len=$('.s_ck:checked').length;
-        if ($(this).prop('checked')) {
-            if (len>4) {
-                alert("最多只能買四張票");
-                $(this).prop('checked',false);
-            }else{
-                $(this).parent().toggleClass('active');
-                seats.push($(this).val());
-            }
+    $('.ck_box').on('change',function(){
+      let len=$('.ck_box:checked').length;
+      if ($(this).prop('checked')) {
+        if (len>4) {
+          alert("最多只可以購買四張票");
+          $(this).prop('checked',false);
         }else{
-            $(this).parent().toggleClass('active');
-            seats.splice(seats.indexOf($(this).val()),1);
+          seats.push($(this).val());
+          $(this).parent().toggleClass('active');
         }
-        $('#len').text($('.s_ck:checked').length);
-        $('#len').data('text',seats);
+      }else{
+        seats.splice(seats.indexOf($(this).val()),1);
+        $(this).parent().toggleClass('active');
+      }
+      $('.len').text(len);
+      console.log(seats);
     })
-
     function tickets(){
-        let name=$('#name').text();
-        let date=$('#date').text();
-        let session=$('#session').text();
-        $.post("./api/tickets.php",{name,date,session,seats},(no)=>{
-            front(`result&no=${no}`);
-        })
+      let name=$('.name').text();
+      let date=$('.date').text();
+      let session=$('.session').text();
+      $.post("./api/orders.php",{seats,name,date,session},(no)=>{
+        location.href=`?do=result&no=${no}`;
+      })
     }
-</script>
+  </script>

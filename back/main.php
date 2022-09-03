@@ -2,12 +2,12 @@
 if (!empty($_POST)) {
     if ($_POST['acc']=='admin' && $_POST['pw']==1234) {
         $_SESSION['acc']=1;
-    }else{
+    }else {
         ?>
-           <script>
+        <script>
             alert("帳號或密碼錯誤");
-            back();
-           </script> 
+            back('main');
+        </script>
         <?php
     }
 }
@@ -16,26 +16,26 @@ if (!empty($_POST)) {
     <?php
     if (!isset($_SESSION['acc'])) {
     ?>
-    <form action="?" method="post">
-        <table class="w60 mg">
-            <tr>
-                <td>帳號</td>
-                <td>
-                    <input type="text" name="acc" id="">
-                </td>
-            </tr>
-            <tr>
-                <td>密碼</td>
-                <td>
-                <input type="text" name="pw" id="">
-                </td>
-            </tr>
-        </table>
-        <div class="ct">
-            <input type="submit" value="登入">
-            <input type="reset" value="重置">
-        </div>
-    </form>
+        <form action="?do=back" method="POST">
+            <table class="w60 mg">
+                <tr>
+                    <td>帳號</td>
+                    <td>
+                        <input type="text" name="acc" id="">
+                    </td>
+                </tr>
+                <tr>
+                    <td>密碼</td>
+                    <td>
+                        <input type="password" name="pw" id="">
+                    </td>
+                </tr>
+            </table>
+            <div class="w60 ct">
+                <input type="submit" value="登入">
+                <input type="reset" value="重置">
+            </div>
+        </form>
     <?php
     } else {
     ?>

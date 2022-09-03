@@ -29,11 +29,11 @@ include "./base.php";
   $file="./back/$do.php";
   if (file_exists($file)) {
     include $file;
-  }else{
+  }else {
     include "./back/main.php";
   }
-  ?>
-  <div id="bo"> ©Copyright 2022~2022 ABC影城 版權所有 </div>
+ ?>
+  <div id="bo"> ©Copyright 2010~2014 ABC影城 版權所有 </div>
 </div>
 </body>
 </html>
