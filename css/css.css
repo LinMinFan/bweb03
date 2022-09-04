@@ -103,7 +103,7 @@ input:focus
 #mm
 {
 	padding:10px;
-	height:520px;
+	min-height:520px;
 }
 #bo
 {
@@ -189,31 +189,6 @@ input:focus
 .blo{
 	display: block;
 }
-.mg{
-	margin: 0 auto;
-}
-.oy_s{
-	overflow-y: scroll;
-}
-.fs12{
-	font-size: 12px;
-}
-.float_l{
-	float: left;
-}
-.float_r{
-	float: right;
-}
-.pos_r{
-	position: relative;
-}
-.pos_a{
-	position: absolute;
-}
-.pos_ct{
-	left: 50%;
-	transform: translateX(-50%);
-}
 .dpn{
 	display: none;
 }
@@ -226,14 +201,33 @@ input:focus
 .flex_jc{
 	justify-content: center;
 }
-.flex_ja{
-	justify-content: space-around;
-}
 .flex_jb{
 	justify-content: space-between;
 }
+.flex_ja{
+	justify-content: space-around;
+}
 .flex_ac{
 	align-items: center;
+}
+.float_l{
+	float: left;
+}
+.float_r{
+	float: right;
+}
+.mg{
+	margin: 0 auto;
+}
+.pos_r{
+	position: relative;
+}
+.pos_a{
+	position: absolute;
+}
+.pos_ct{
+	left: 50%;
+	transform: translateX(-50%);
 }
 .h0{
 	height: 0px;
@@ -312,4 +306,10 @@ input:focus
 }
 .w100{
 	width: 100%;
+}
+.oy_s{
+	overflow-y: scroll;
+}
+.fs12{
+	font-size: 12px;
 }

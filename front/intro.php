@@ -6,10 +6,10 @@ $mv=$movies->find($_GET['id']);
       <div style="background:#FFF; width:100%; color:#333; text-align:left">
         <video src="./img/<?=$mv['film'];?>" width="300px" height="250px" controls="" style="float:right;"></video>
         <font style="font-size:24px"> <img src="./img/<?=$mv['img'];?>" width="200px" height="250px" style="margin:10px; float:left">
-        <p style="margin:3px">影片名稱 ：<?=$mv['name'];?>
+        <p style="margin:3px">影片名稱 ：
           <input type="button" value="線上訂票" onclick="front('orders&id=<?=$mv['id'];?>')" style="margin-left:50px; padding:2px 4px" class="b2_btu">
         </p>
-        <p style="margin:3px">影片分級 ： <img src="./icon/<?=$level_icon[$mv['level']];?>"><?=$mv['level'];?> </p>
+        <p style="margin:3px">影片分級 ： <img src="./icon/<?=$level_icon[$mv['level']];?>" style="display:inline-block;"><?=$mv['level'];?> </p>
         <p style="margin:3px">影片片長 ： <?=$mv['length'];?>分</p>
         <p style="margin:3px">上映日期 <?=$mv['ondate'];?></p>
         <p style="margin:3px">發行商 ： <?=$mv['publish'];?></p>
