@@ -427,6 +427,9 @@
                 getsession(date, id);
                 })
                 ```
+
+    <!-------- 有剩餘時間再做 若時間不足 以下功能放棄不做 -------->
+    
     * 建立訂票座位頁面Ajax載入 get_booking.php
         * ```html
             <div class="ct">
