@@ -1,7 +1,7 @@
 <?php
 $mv=$movies->find($_GET['id']);
 ?>
-<div id="mm">
+ <div id="mm">
     <div class="tab rb" style="width:87%;">
       <div style="background:#FFF; width:100%; color:#333; text-align:left">
         <video src="./img/<?=$mv['film'];?>" width="300px" height="250px" controls="" style="float:right;"></video>
